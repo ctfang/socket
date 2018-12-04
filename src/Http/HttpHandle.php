@@ -16,7 +16,7 @@ class HttpHandle extends ConnectHandle
     /**
      * @var SocketConnect
      */
-    private $connect;
+    protected $connect;
 
     /**
      * @param SocketConnect $connect
