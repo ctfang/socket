@@ -1,0 +1,20 @@
+{
+  "name": "ctfang/socket",
+  "description": "base socket",
+  "type": "utopia-extension",
+  "authors": [
+    {
+      "name": "ctfang",
+      "email": "1992053348@qq.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Utopia\\Socket\\": "src/"
+    }
+  },
+  "require": {
+    "psr/http-server-middleware": "^1.0",
+    "react/http": "^0.8.3"
+  }
+}
