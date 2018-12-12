@@ -6,36 +6,21 @@
  * Time: 11:18
  */
 
+use Utopia\Socket\Connect\HttpConnect;
+use Utopia\Socket\Http\HttpHandle;
+
 require '../vendor/autoload.php';
 
 
-$scheduler = new \Utopia\Co\Scheduler();
+$scheduler = new \Utopia\Socket\Scheduler();
 
-go(function (){
-    echo "协程 1 开始\n";
-    for ($i=0;$i<10000;$i++){
-        yield co_sleep(1);
-        echo "协程 1 ：{$i}\n";
-    }
-});
-
-go(function (){
-    echo "协程 2 开始\n";
-    yield co_sleep(1);
-    echo "协程 2：{2222222222222222}\n";
-    yield co_sleep(1);
-    echo "协程 2：{3333333333333333}\n";
-    echo "协程 2 结束\n";
-});
+$connect = new HttpConnect();
+$connect->setHandle(new HttpHandle());
+$scheduler->monitor('tcp://0.0.0.0:8080', $connect);
 
 /**
  * 模拟socket监听
  */
 while (1){
-    $hasCo = $scheduler->run();
-    $timeout = $hasCo?0:null;
-    /**
-     * 根据是否还有协程，设置超时时间
-     * stream_select($rSocks, $wSocks, $eSocks, $timeout)
-     */
+    $scheduler->run(0);
 }
